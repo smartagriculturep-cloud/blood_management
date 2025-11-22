@@ -6,8 +6,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'change-this-in-production'
 
 DEBUG = False
+ALLOWED_HOSTS = [
+    "blood-management-prn3.onrender.com",
+    "127.0.0.1",
+    "localhost",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://blood-management-prn3.onrender.com",
+]
 
-ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
