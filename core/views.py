@@ -265,4 +265,4 @@ def crossmatch_api(request):
     result = crossmatch_assistant(patient_bg, donor_bg)
     return JsonResponse(result)
 def donate(request):
-    return render(request,'core/')
+    return render(request,'core/donate.html')
