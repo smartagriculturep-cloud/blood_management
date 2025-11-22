@@ -82,14 +82,13 @@ def login_page(request):
 def logout_page(request):
     logout(request)
     return redirect('/login')
-@login_required
 def donor_create(request):
     if request.method == 'POST':
         form = DonorForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Donor added successfully')
-            return redirect('core:donor_list')
+            #return redirect('core:donor_list')
     else:
         form = DonorForm()
     return render(request, 'core/donor_form.html', {'form': form})
@@ -152,7 +151,6 @@ def request_list(request):
     return render(request, 'core/request_list.html', {'requests': requests})
 
 
-@login_required
 def request_create(request):
     if request.method == 'POST':
         form = BloodRequestForm(request.POST)
@@ -164,7 +162,7 @@ def request_create(request):
                 message=f"A new blood request has been created for {blood_request.blood_group} ({blood_request.units_requested} units).",
             )
             messages.success(request, 'Blood request created.')
-            return redirect('core:request_list')
+            #return redirect('core:request_list')
     else:
         form = BloodRequestForm()
     return render(request, 'core/request_form.html', {'form': form})
