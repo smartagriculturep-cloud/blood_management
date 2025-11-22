@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Become a Donor (QR - Donor View)</h1>
+<h3>Steps / Protocol to Donate Blood</h3>
+<ol>
+  {% for s in steps %}
+  <li>{{ s }}</li>
+  {% endfor %}
+</ol>
+
+<h3>Nearby Donation Centers</h3>
+<ul>
+  {% for c in centers %}
+  <li><strong>{{ c.name }}</strong> - {{ c.address }} ({{ c.phone }})</li>
+  {% endfor %}
+</ul>
+{% endblock %}

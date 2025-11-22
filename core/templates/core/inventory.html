@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Blood Inventory</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Blood Group</th>
+      <th>Units Available</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in inventory %}
+    <tr>
+      <td>{{ item.blood_group }}</td>
+      <td>{{ item.units_available }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'core:donation_create' %}" class="btn btn-success">Record Donation</a>
+{% endblock %}

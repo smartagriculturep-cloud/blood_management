@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Donors</h1>
+  <a href="{% url 'core:donor_create' %}" class="btn btn-success">Add Donor</a>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Blood Group</th>
+      <th>City</th>
+      <th>Phone</th>
+      <th>Available</th>
+      <th>Total Donations</th>
+      <th>Reputation</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in donors %}
+    <tr>
+      <td>{{ d.name }}</td>
+      <td>{{ d.blood_group }}</td>
+      <td>{{ d.city }}</td>
+      <td>{{ d.phone }}</td>
+      <td>{{ d.is_available }}</td>
+      <td>{{ d.total_donations }}</td>
+      <td>{{ d.reputation_points }}</td>
+      <td>
+        <a class="btn btn-sm btn-primary" href="{% url 'core:donor_update' d.id %}">Edit</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'core:donor_delete' d.id %}">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="8">No donors yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

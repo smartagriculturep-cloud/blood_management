@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>{% if form.instance.pk %}Edit Donor{% else %}Add Donor{% endif %}</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Save</button>
+  <a href="{% url 'core:donor_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

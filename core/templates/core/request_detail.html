@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Request #{{ request_obj.id }}</h1>
+<p><strong>Patient:</strong> {{ request_obj.patient_name }} ({{ request_obj.patient_age }})</p>
+<p><strong>Blood Group:</strong> {{ request_obj.blood_group }} | <strong>Units:</strong> {{ request_obj.units_requested }}</p>
+<p><strong>Urgency:</strong> {{ request_obj.urgency }} | <strong>Status:</strong> {{ request_obj.status }}</p>
+<p><strong>Location:</strong> {{ request_obj.location }}</p>
+
+<h3>Inventory Status</h3>
+{% if inventory %}
+  <p>{{ inventory.blood_group }}: {{ inventory.units_available }} units available</p>
+{% else %}
+  <p>No inventory record for this blood group.</p>
+{% endif %}
+
+<h3>Recommended Donors (Smart Prioritization)</h3>
+<form method="post" action="{% url 'core:assign_donors' request_obj.id %}">
+  {% csrf_token %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Select</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>Last Donation</th>
+        <th>Total Donations</th>
+        <th>Eligible</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in recommended_donors %}
+      <tr>
+        <td><input type="checkbox" name="donors" value="{{ d.id }}"></td>
+        <td>{{ d.name }}</td>
+        <td>{{ d.city }}</td>
+        <td>{{ d.last_donation_date }}</td>
+        <td>{{ d.total_donations }}</td>
+        <td>{{ d.is_eligible }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">No donors found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="mb-3">
+    <label>Units to issue</label>
+    <input type="number" name="units_to_issue" value="{{ request_obj.units_requested }}" class="form-control" />
+  </div>
+  <button type="submit" class="btn btn-success">Assign & Notify Donors</button>
+</form>
+{% endblock %}

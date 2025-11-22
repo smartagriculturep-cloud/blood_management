@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Find Donors</h1>
+<form method="get" class="mb-3">
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Blood Group</th>
+      <th>City</th>
+      <th>Phone</th>
+      <th>Eligible</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in donors %}
+    <tr>
+      <td>{{ d.name }}</td>
+      <td>{{ d.blood_group }}</td>
+      <td>{{ d.city }}</td>
+      <td><a href="tel:{{ d.phone }}">{{ d.phone }}</a></td>
+      <td>{{ d.is_eligible }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No donors found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
